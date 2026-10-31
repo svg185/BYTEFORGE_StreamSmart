@@ -1,42 +1,49 @@
-
 import "./LandingPage.css";
 import React from "react";
 import { Link } from "react-router-dom";
+import HeroGlobe from "./HeroGlobe.jsx";
 
 const features = [
   {
     icon: "◈",
     title: "Adaptive Bitrate",
-    text: "Automatically adjusts video quality according to changing network conditions for uninterrupted playback."
+    text: "Automatically adjusts video quality according to changing network conditions for uninterrupted playback.",
   },
   {
     icon: "⌁",
     title: "Network Simulation",
-    text: "Simulate bandwidth, latency, jitter, and packet loss to understand different network environments."
+    text: "Simulate bandwidth, latency, jitter, and packet loss to understand different network environments.",
   },
   {
     icon: "▥",
     title: "Live Analytics",
-    text: "Monitor bandwidth, buffer health, quality changes, and playback performance in real time."
+    text: "Monitor bandwidth, buffer health, quality changes, and playback performance in real time.",
   },
   {
     icon: "◉",
     title: "Buffer Monitoring",
-    text: "Track playback interruptions and buffer conditions to understand the streaming experience."
+    text: "Track playback interruptions and buffer conditions to understand the streaming experience.",
   },
   {
     icon: "⇄",
     title: "Performance Comparison",
-    text: "Compare fixed-quality streaming with adaptive streaming to evaluate optimization results."
+    text: "Compare fixed-quality streaming with adaptive streaming to evaluate optimization results.",
   },
   {
     icon: "▤",
     title: "Session History",
-    text: "Review previous playback sessions and understand how network conditions affected performance."
-  }
+    text: "Review previous playback sessions and understand how network conditions affected performance.",
+  },
 ];
 
-function App() {
+function LandingPage() {
+  const scrollToSection = (id) => {
+    document.getElementById(id)?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
   return (
     <div className="site-shell">
 
@@ -53,7 +60,7 @@ function App() {
         <div className="nav-links">
           <a href="#features">Features</a>
           <a href="#how-it-works">How it works</a>
-          <a href="#dashboard">Dashboard</a>
+          <a href="#dashboard">Network</a>
         </div>
 
         <Link className="nav-cta" to="/register">
@@ -65,36 +72,46 @@ function App() {
       <main>
 
         {/* Hero Section */}
-        <section className="hero container">
+        <section className="hero container ss-hero">
 
-          <div className="hero-copy">
+          <div className="hero-copy ss-hero-copy">
 
             <div className="eyebrow">
               <span className="pulse"></span>
-              INTELLIGENT VIDEO DELIVERY
+              INTELLIGENT DELIVERY / 01
             </div>
 
             <h1>
-              Streaming that
+              STREAM
               <br />
-              moves at <em>your speed.</em>
+              <em>SMART.</em>
             </h1>
 
-            <p className="hero-text">
-              Meet StreamSmart — a smart video streaming optimization
-              platform that monitors network conditions and adapts
-              video quality to deliver a smoother playback experience.
+            <p className="hero-text ss-hero-tagline">
+              Geo-aware video delivery.
+              <br />
+              Engineered for the edge.
+            </p>
+
+            <p className="ss-hero-description">
+              Meet StreamSmart — an intelligent video delivery and edge
+              caching simulation platform designed to explore network
+              conditions, adaptive playback and streaming performance.
             </p>
 
             <div className="hero-actions">
 
               <Link className="button primary" to="/register">
-                Explore StreamSmart <span>→</span>
+                Explore Platform <span>→</span>
               </Link>
 
-              <a className="text-link" href="#how-it-works">
-                See how it works <span>↗</span>
-              </a>
+              <button
+                type="button"
+                className="text-link ss-discover-button"
+                onClick={() => scrollToSection("how-it-works")}
+              >
+                Discover the system <span>↗</span>
+              </button>
 
             </div>
 
@@ -106,98 +123,18 @@ function App() {
               </div>
 
               <span>
-                Smarter streaming through network intelligence
+                Geo-aware delivery. Built for the next frame.
               </span>
             </div>
 
           </div>
 
-          {/* Streaming Dashboard Preview */}
-          <div className="visual-wrap" id="dashboard">
-
-            <div className="glow"></div>
-
-            <div className="player-card">
-
-              <div className="player-top">
-                <span>
-                  <b className="live-dot"></b>
-                  STREAMSMART DEMO
-                </span>
-
-                <span className="quality">
-                  1080p <b>HD</b>
-                </span>
-              </div>
-
-              <div className="video-scene">
-
-                <div className="scene-sun"></div>
-                <div className="mountain back"></div>
-                <div className="mountain front"></div>
-
-                <div className="play-button">▶</div>
-
-                <div className="scene-caption">
-                  <small>ADAPTIVE VIDEO STREAMING</small>
-                  <strong>Every frame. In sync.</strong>
-                </div>
-
-              </div>
-
-              <div className="player-controls">
-                <span>▶</span>
-                <div className="timeline">
-                  <i></i>
-                </div>
-                <span>02:14 / 12:48</span>
-                <span>⚙</span>
-                <span>⛶</span>
-              </div>
-
-            </div>
-
-            {/* Network Speed Card */}
-            <div className="floating-card speed-card">
-
-              <span className="mini-label">NETWORK BANDWIDTH</span>
-
-              <strong>
-                24.8 <small>Mbps</small>
-              </strong>
-
-              <div className="sparkline">
-                {Array.from({ length: 12 }, (_, index) => (
-                  <i key={index}></i>
-                ))}
-              </div>
-
-              <span className="positive">
-                ↑ Network monitoring
-              </span>
-
-            </div>
-
-            {/* Buffer Health Card */}
-            <div className="floating-card buffer-card">
-
-              <span className="mini-label">BUFFER HEALTH</span>
-
-              <strong>
-                98<span>%</span>
-              </strong>
-
-              <div className="buffer-track">
-                <i></i>
-              </div>
-
-              <span className="positive">
-                Playback status
-              </span>
-
-            </div>
-
+          {/* Animated Network Globe */}
+          <div className="visual-wrap ss-globe-wrap" id="dashboard">
+            <HeroGlobe />
           </div>
+
+          <div className="ss-hero-index">SS / 2026</div>
 
         </section>
 
@@ -388,12 +325,16 @@ function App() {
         </Link>
 
         <span>
-          © 2026 StreamSmart · Smart Video Streaming Optimization
+          © {new Date().getFullYear()} StreamSmart · Smart Video Streaming Optimization
         </span>
 
-        <a href="#">
+        <button
+          type="button"
+          className="ss-back-to-top"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
           Back to top ↑
-        </a>
+        </button>
 
       </footer>
 
@@ -401,4 +342,4 @@ function App() {
   );
 }
 
-export default App;
+export default LandingPage;
