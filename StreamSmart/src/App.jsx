@@ -1,26 +1,15 @@
-
 import { useState } from "react";
 import {
-  Activity,
-  BarChart3,
-  Clapperboard,
-  LayoutDashboard,
-  Network,
-  Settings,
-  Play,
-  Wifi,
-  Zap,
-  Clock,
-  Gauge,
-  ChevronRight,
-  Bell,
-  Search,
+  Activity, BarChart3, Clapperboard, LayoutDashboard, Network,
+  Settings, Play, Wifi, Zap, Clock, Gauge, ChevronRight,
+  Bell, Search, Home,
 } from "lucide-react";
-
+import LandingPage from "./components/LandingPage.jsx";
 import "./App.css";
 
 function App() {
   const [activePage, setActivePage] = useState("Overview");
+  const [showDashboard, setShowDashboard] = useState(false);
 
   const navigation = [
     { name: "Overview", icon: LayoutDashboard },
@@ -30,39 +19,21 @@ function App() {
   ];
 
   const stats = [
-    {
-      title: "Playback Sessions",
-      value: "0",
-      detail: "Total test sessions",
-      icon: Play,
-    },
-    {
-      title: "Average Buffering",
-      value: "0.0s",
-      detail: "Buffering duration",
-      icon: Clock,
-    },
-    {
-      title: "Network Speed",
-      value: "-- Mbps",
-      detail: "Current bandwidth",
-      icon: Wifi,
-    },
-    {
-      title: "Optimization Score",
-      value: "--",
-      detail: "Performance score",
-      icon: Gauge,
-    },
+    { title: "Playback Sessions", value: "0", detail: "Total test sessions", icon: Play },
+    { title: "Average Buffering", value: "0.0s", detail: "Buffering duration", icon: Clock },
+    { title: "Network Speed", value: "-- Mbps", detail: "Current bandwidth", icon: Wifi },
+    { title: "Optimization Score", value: "--", detail: "Performance score", icon: Gauge },
   ];
+
+  if (!showDashboard) {
+    return <LandingPage onExplore={() => setShowDashboard(true)} />;
+  }
 
   return (
     <div className="app-container">
       <aside className="sidebar">
         <div className="brand">
-          <div className="brand-icon">
-            <Activity size={23} />
-          </div>
+          <div className="brand-icon"><Activity size={23} /></div>
           <div>
             <h2>StreamSmart</h2>
             <span>STREAMING INTELLIGENCE</span>
@@ -71,23 +42,17 @@ function App() {
 
         <div className="nav-section">
           <p className="nav-label">WORKSPACE</p>
-
           {navigation.map((item) => {
             const Icon = item.icon;
-
             return (
               <button
                 key={item.name}
-                className={`nav-item ${
-                  activePage === item.name ? "active" : ""
-                }`}
+                className={`nav-item ${activePage === item.name ? "active" : ""}`}
                 onClick={() => setActivePage(item.name)}
               >
                 <Icon size={19} />
                 <span>{item.name}</span>
-                {activePage === item.name && (
-                  <ChevronRight size={16} className="nav-arrow" />
-                )}
+                {activePage === item.name && <ChevronRight size={16} className="nav-arrow" />}
               </button>
             );
           })}
@@ -98,7 +63,6 @@ function App() {
             <Settings size={19} />
             <span>Settings</span>
           </button>
-
           <div className="profile">
             <div className="avatar">SS</div>
             <div>
@@ -112,16 +76,21 @@ function App() {
       <main className="main-content">
         <header className="topbar">
           <div className="breadcrumb">
-            Workspace <span>/</span> {activePage}
+            <button
+              type="button"
+              className="home-link"
+              onClick={() => setShowDashboard(false)}
+              aria-label="Back to landing page"
+              title="Back to landing page"
+            >
+              <Home size={15} /> Home
+            </button>
+            <span>/</span> Workspace <span>/</span> {activePage}
           </div>
 
           <div className="topbar-actions">
-            <button className="icon-button">
-              <Search size={19} />
-            </button>
-            <button className="icon-button">
-              <Bell size={19} />
-            </button>
+            <button className="icon-button"><Search size={19} /></button>
+            <button className="icon-button"><Bell size={19} /></button>
             <div className="status-indicator">
               <span className="status-dot"></span>
               System Ready
@@ -138,11 +107,7 @@ function App() {
                 Monitor, test and optimize your video streaming experience.
               </p>
             </div>
-
-            <button
-              className="primary-button"
-              onClick={() => setActivePage("Video Lab")}
-            >
+            <button className="primary-button" onClick={() => setActivePage("Video Lab")}>
               <Play size={17} fill="currentColor" />
               Start New Test
             </button>
@@ -153,16 +118,12 @@ function App() {
               <div className="stats-grid">
                 {stats.map((stat) => {
                   const Icon = stat.icon;
-
                   return (
                     <div className="stat-card" key={stat.title}>
                       <div className="stat-top">
                         <span>{stat.title}</span>
-                        <div className="stat-icon">
-                          <Icon size={20} />
-                        </div>
+                        <div className="stat-icon"><Icon size={20} /></div>
                       </div>
-
                       <h2>{stat.value}</h2>
                       <p>{stat.detail}</p>
                     </div>
@@ -179,19 +140,12 @@ function App() {
                     </div>
                     <Clapperboard size={21} />
                   </div>
-
                   <div className="video-placeholder">
-                    <div className="play-circle">
-                      <Play size={27} fill="currentColor" />
-                    </div>
+                    <div className="play-circle"><Play size={27} fill="currentColor" /></div>
                     <h3>Ready to stream?</h3>
                     <p>Select a video and start your first test.</p>
                   </div>
-
-                  <button
-                    className="secondary-button"
-                    onClick={() => setActivePage("Video Lab")}
-                  >
+                  <button className="secondary-button" onClick={() => setActivePage("Video Lab")}>
                     Open Video Lab <ChevronRight size={17} />
                   </button>
                 </div>
@@ -204,24 +158,16 @@ function App() {
                     </div>
                     <Network size={21} />
                   </div>
-
                   <div className="network-status">
-                    <div className="network-visual">
-                      <Wifi size={34} />
-                    </div>
+                    <div className="network-visual"><Wifi size={34} /></div>
                     <h2>Not Connected</h2>
                     <p>Start a test to monitor network conditions.</p>
                   </div>
-
                   <div className="network-footer">
                     <span>Simulation</span>
                     <strong>Inactive</strong>
                   </div>
-
-                  <button
-                    className="secondary-button"
-                    onClick={() => setActivePage("Network Lab")}
-                  >
+                  <button className="secondary-button" onClick={() => setActivePage("Network Lab")}>
                     Configure Network <ChevronRight size={17} />
                   </button>
                 </div>
@@ -235,7 +181,6 @@ function App() {
                   </div>
                   <Activity size={21} />
                 </div>
-
                 <div className="empty-state">
                   <Zap size={27} />
                   <p>No test sessions recorded yet.</p>
@@ -245,9 +190,7 @@ function App() {
             </>
           ) : (
             <div className="panel placeholder-page">
-              <div className="placeholder-icon">
-                <Activity size={34} />
-              </div>
+              <div className="placeholder-icon"><Activity size={34} /></div>
               <h2>{activePage}</h2>
               <p>
                 This workspace is ready for development.
